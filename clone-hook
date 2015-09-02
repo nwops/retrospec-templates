@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+@template_dir    = ARGV[0] || File.dirname(__FILE__) 
+@template_repo   = ARGV[1] || 'https://github.com/nwops/retrospec-templates'
+@template_branch = ARGV[2] || 'master'
+
+def create_repo(template_dir, git_url)
+  # check if repo already exists
+  git_file = File.join(template_dir,'.git','config')
+  unless File.exists?(git_file)
+    puts `git init #{template_dir}`
+    puts `git remote add origin #{git_url}`
+  end
+end
+
+def update_templates(git_url, dest, branch='master')
+  if File.exists?(File.join(dest, '.git'))
+    puts `cd #{dest} && git stash && git pull`
+  else
+    create_repo(dest, git_url)
+    update_templates(git_url, dest, branch)
+  end
+  dest
+end
+
+def connected?
+  open("http://example.com/") rescue false
+end
+
+# sometimes I work on an airplane and don't care to clone everything all the time
+# so lets check for connectivity first
+if connected?
+  update_templates(@template_repo, @template_dir, @template_branch)
+end
