@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'fileutils'
+require 'open-uri'
 
 module_path = ARGV[0]
 # define the paths
@@ -19,7 +20,7 @@ def clone_url(git_url, dest, branch='master')
 end
 
 def connected?
-  open("http://example.com/") rescue false
+  open("http://www.google.com/") rescue false
 end
 
 if connected?
