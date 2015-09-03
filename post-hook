@@ -2,4 +2,4 @@
 
 
 echo "Hello from the post hook"
-echo "The template path is: ${1}"
+echo "The module path is: ${1}"
