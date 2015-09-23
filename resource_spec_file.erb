@@ -12,7 +12,8 @@ describe '<%= @type.name -%>' do
   <%- if @type.type == :definition -%>
   let(:title) { 'XXreplace_meXX' }
   <%- elsif @type.type == :node -%>
-  let(:node) { 'XXreplace_meXX' }
+  # the node name you want to test for in the site.pp classification
+  let(:node) { '<%= @type.name %>' }
   <%- end -%>  
   # below is the facts hash that gives you the ability to mock
   # facts on a per describe/context block.  If you use a fact in your
