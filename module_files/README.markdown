@@ -1,4 +1,4 @@
-# profiles 
+# module name 
 
 ## Module development setup
 

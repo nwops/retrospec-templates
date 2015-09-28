@@ -4,7 +4,7 @@ inside the gem but have been pulled out in order to make template changes more s
 common to have multiple sets of templates when working with various clients so having a beginning repo helps out.
 
 ## Usage
-These templates are for use with the Retrospec tool (https://github.com/logicminds/puppet-retrospec)
+These templates are for use with the Retrospec tool (https://github.com/nwops/puppet-retrospec)
 You can clone these templates yourself, but Retrospec by default will clone this repo automatically.
 
 Should want to use your own fork of these templates with retrospec you can specifiy the scm url to point to whatever.
@@ -12,7 +12,7 @@ I have specifically designed retrospec to not depend on any one single SCM.  How
 repo only work with git.
 
 ```
-% retrospec -h
+% retrospec puppet -h
 Generates puppet rspec test code based on the classes and defines inside the manifests directory.
   -m, --module-path=<s>         The path (relative or absolute) to the module directory (Defaults to current directory) 
   -t, --template-dir=<s>        Path to templates directory (only for overriding Retrospec templates) (default: /Users/cosman/.retrospec_templates)
