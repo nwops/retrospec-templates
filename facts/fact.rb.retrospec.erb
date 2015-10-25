@@ -1,0 +1,21 @@
+Facter.add(<%= fact_name.to_sym.inspect %>) do
+  setcode do
+    # use the confine feature to lock a fact to only run under certain conditions
+    # confine :kernel => 'Linux'
+
+    # inspect the system for interesting data
+    # when you need to shell out to run a os specific command
+    # use the Facter::Core::Execution.exec method
+    # Facter::Core::Execution.execute('/bin/uname --hardware-platform')
+    # when the last method runs it should return a value to facter
+    # so you don't need to manually use return value
+    # below is facter 2.x method to return the result of a shell command, so you must run Facter 2+
+    Facter::Core::Execution.execute("echo 'value123'")
+  end
+end
+
+
+### TIPS:
+# Using other facts:
+# distid = Facter.value(:lsbdistid)
+

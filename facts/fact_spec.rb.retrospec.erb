@@ -1,0 +1,29 @@
+require 'spec_helper'
+require 'facter'
+
+describe <%= fact_name.to_sym.inspect %>, :type => :fact do
+
+  before :all do
+    # perform any action that should be run for the entire test suite
+  end
+
+  before :each do
+    # perform any action that should be run before every test
+    Facter.clear
+    <%- used_facts.each do |name, fact_data| -%>
+    allow(Facter.fact(<%= name.inspect %>)).to recieve(:value).and_return('replace_me')
+    <%- end -%>
+  <%- confines.each do |value|-%>
+    <%- value.each do |k,v | -%>
+    allow(Facter.fact(<%= k.inspect %>)).to recieve(:value).and_return(<%= v.inspect %>)
+    <%- end -%>
+  <%- end -%>
+  <%- exec_calls.each do |cmd, data| -%>
+    allow(<%= data[:klass] %>).to receive(<%= data[:method].inspect %>).with(<%= cmd.inspect %>).and_return('mocked_value123')
+  <%- end -%>
+  end
+
+  it 'should return a value' do
+    expect(Facter.fact(<%= fact_name.to_sym.inspect %>).value).to eq('value123')  #<-- change the value to match your expectation
+  end
+end
