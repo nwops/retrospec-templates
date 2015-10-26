@@ -41,7 +41,7 @@ describe '<%= @type.name -%>' do
   <%- @resources.each do |res| -%>
   it do
     is_expected.to contain_<%= res.type.gsub('::', '__')%>('<%= res.title %>')
-             .with(<%= res.parameters.to_s.gsub(/\",/, "\",\n                  ") %>)
+      .with(<%= res.parameters.ai({:indent => -8, :plain => true, :sort_keys => true}).gsub(/^\{/,'').gsub(/\}$/, '').tr('"', "'")%>      )
   end
   <%- end -%>
 end
