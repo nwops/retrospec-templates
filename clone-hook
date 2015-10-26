@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 require 'open-uri'
+require 'retrospec-puppet'
 
 @template_dir    = ARGV[0] || File.join(ENV['HOME'], '.retrospec/repos/retrospec-puppet-templates')
 @template_repo   = ARGV[1] || 'https://github.com/nwops/retrospec-templates'
@@ -36,6 +37,11 @@ def connected?
   open("http://www.google.com/") rescue false
 end
 
+if Retrospec::Puppet::VERSION != "0.11.0"
+  puts "Newer version of retrospec-puppet detected, please update: gem update retrospec-puppet"
+  puts "Incompatible plugin version with new templates, will not continue without update"
+  exit -1
+end
 # sometimes I work on an airplane and don't care to clone everything all the time
 # so lets check for connectivity first
 if connected?
