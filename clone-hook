@@ -29,6 +29,10 @@ def update_templates(git_url, dest, branch='master')
 end
 
 def connected?
+  if ! ENV['CLONE_RETROSPEC_TEMPLATES'].nil?
+    # if the user wants internet but doesn't want cloning, allow them to set this variable
+    return false
+  end
   open("http://www.google.com/") rescue false
 end
 
