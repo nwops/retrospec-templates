@@ -26,6 +26,20 @@ Generates puppet rspec test code based on the classes and defines inside the man
 retrospec -s https://github.com/nwops/retrospec-templates.git -b master -t ~/my_special_templates
 
 ```
+
+## Configuration
+The retrospec puppet plugin allows you to set some configuration settings that control how retrospec is run.
+While this is not an complete list of settings you may want to change where retrospec gets its puppet templates from.
+
+```
+# ~/.retrospec/config.yaml
+---
+plugins::puppet::templates::url: 'https://github.com/nwops/retrospec-templates.git'
+plugins::puppet::templates::ref: master
+plugins::puppet::author: 'Corey Osman'
+plugins::puppet::namespace: 'NWOPS'
+```
+
 ## Hooks
 Hooks were a feature added in the 0.8.0 release of retrospec and are used to perform additional puppet
 module development automation. These hooks come pre-populated with some basic magic, but are intended to be changed
@@ -38,7 +52,9 @@ is executable. (Python, Ruby, Bash, Zsh, Go, Rust, ...).
 This hook is called at the initialization time when running Retrospec.  Its primary use is to seed the templates that 
 are used to retrofit your module.  By default the hook will clone from https://github.com/nwops/retrospec-templates.git.
 However, this behavior can be changed by using the `-s` switch from retrospec or by changing the default url in the hook
-code.
+code.  The clone-hook that comes with the retrospec puppet plugin will bootstrap your machine with the proper templates.
+After the templates exist on your machine the clone-hook will be run from this repo only so that you can have full control
+over all the hooks and templates.
 
 ### Pre-hook
 This hook is called after the clone hook and before retrospec creates the files in your module.  Its useful for performing
