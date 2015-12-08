@@ -37,7 +37,7 @@ def connected?
   open("http://www.google.com/") rescue false
 end
 
-if Retrospec::Puppet::VERSION != "0.11.0"
+if Gem::Version.new(Retrospec::Puppet::VERSION) < Gem::Version.new('0.11.0')
   puts "Newer version of retrospec-puppet detected, please update: gem update puppet-retrospec"
   puts "Incompatible plugin version with new templates, will not continue without update"
   exit -1
