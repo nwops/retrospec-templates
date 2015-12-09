@@ -13,14 +13,14 @@ describe <%= fact_name.to_sym.inspect %>, :type => :fact do
     <%- used_facts.each do |name, fact_data| -%>
     allow(Facter.fact(<%= name.inspect %>)).to receive(:value).and_return('replace_me')
     <%- end -%>
-  # This will mock the facts that confine uses to limit facts running under certain conditions
-  <%- confines.each do |value|-%>
-    <%- value.each do |k,v | -%>
+    # This will mock the facts that confine uses to limit facts running under certain conditions
+  <%- confines.each do |k,v|-%>
     allow(Facter.fact(<%= k.inspect %>)).to receive(:value).and_return(<%= v.inspect %>)
-    <%- end -%>
   <%- end -%>
-  # below is how you mock responses from the command line
-  # you will need to built tests that plugin different mocked values in order to fully test your facter code
+  <%- unless exec_calls.empty? -%>
+    # below is how you mock responses from the command line
+    # you will need to built tests that plugin different mocked values in order to fully test your facter code
+  <%- end -%>  
   <%- exec_calls.each do |cmd, data| -%>
     allow(<%= data[:klass] %>).to receive(<%= data[:method].inspect %>).with(<%= cmd.inspect %>).and_return('mocked_value123')
   <%- end -%>
