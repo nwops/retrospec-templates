@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Puppet::Type.type(<%= type_name.inspect %>).provider(<%= provider_name.inspect %>) do
+describe Puppet::Type.type(<%= type_name.inspect %>).provider(<%= name.inspect %>) do
   let (:provider) { subject }
   let(:properties) do
     <%= properties.to_h.inspect %>
