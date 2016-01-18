@@ -10,11 +10,25 @@ templates_path = File.dirname(__FILE__)
 # ensure the directories are created
 FileUtils.mkdir_p(repo_path)
 
+def perform_update?(dest)
+  update = true
+  path = File.join(dest, '.git', 'objects')
+  if File.exists?(path)
+    obj_dir = File.new(path)
+    last_updated = obj_dir.mtime + 2*60*60  # add two hours
+    if last_updated < Time.now
+      update = true
+    else
+      update = false
+    end
+  end
+  update
+end
 
 def clone_url(git_url, dest, branch='master')
   if connected?
     if File.exists?(File.join(dest, '.git'))
-      `cd #{dest} && git stash && git pull`
+      `cd #{dest} && git stash && git pull` if perform_update?(dest)
     else
       `git clone -b #{branch} #{git_url} #{dest}`
     end
@@ -23,7 +37,11 @@ def clone_url(git_url, dest, branch='master')
 end
 
 def connected?
-  open("http://example.com/") rescue false
+  if ! ENV['CLONE_RETROSPEC_TEMPLATES'].nil?
+    # if the user wants internet but doesn't want cloning, allow them to set this variable
+    return false
+  end
+  open("http://www.google.com/") rescue false
 end
 
 # lets all make sure we have the pre-commit hook repository, templates and link established

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-
-echo "Hello from the post hook"
-echo "The module path is: ${1}"
+# Do something cool here.
+#echo "Hello from the post hook"
+#echo "The module path is: ${1}"

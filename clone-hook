@@ -1,4 +1,12 @@
 #!/usr/bin/env ruby
+# runs a little bit of automation to keep the retrospec templates up to date
+# To disable cloning set CLONE_RETROSPEC_TEMPLATES environment variable
+# If you want to change the template source just set your plugins::puppet::templates::url
+# in your retrospec settings file
+# see https://github.com/nwops/retrospec-templates#configuration
+# You can also replace this script with whatever you want. This isn't mandatory
+# as long as you keep your templates up to date with some other mechanism.
+
 require 'fileutils'
 require 'open-uri'
 require 'retrospec-puppet'
@@ -6,6 +14,21 @@ require 'retrospec-puppet'
 @template_dir    = ARGV[0] || File.join(ENV['HOME'], '.retrospec/repos/retrospec-puppet-templates')
 @template_repo   = ARGV[1] || 'https://github.com/nwops/retrospec-templates'
 @template_branch = ARGV[2] || 'master'
+
+def perform_update?
+  update = true
+  path = File.join(@template_dir, '.git', 'objects')
+  if File.exists?(path)
+    obj_dir = File.new(path)
+    last_updated = obj_dir.mtime + 2*60*60  # add two hours
+    if last_updated < Time.now
+      update = true
+    else
+      update = false
+    end
+  end
+  update
+end
 
 def create_repo(template_dir, git_url, branch)
   # check if repo already exists
@@ -23,9 +46,25 @@ def origin_exists?(template_dir)
   $?.success?
 end
 
+def set_ssh_config
+  content = <<-EOF
+Host github.com
+  ControlMaster auto
+  ControlPath ~/.ssh/ssh-%r@%h:%p
+  ControlPersist yes
+
+  EOF
+
+  status = `grep 'Host github.com' ~/.ssh/config`
+  unless $?.success?
+    puts "Updating SSH config for clone speed improvments"
+    File.open(File.expand_path('~/.ssh/config'), 'a') {|f| f.puts(content)}
+  end
+end
+
 def update_templates(git_url, dest, branch='master')
   create_repo(dest, git_url, branch)
-  puts `git -C #{dest} pull`
+  puts `git -C #{dest} pull` if perform_update?
   dest
 end
 
@@ -36,6 +75,9 @@ def connected?
   end
   open("http://www.google.com/") rescue false
 end
+
+#ensure config is set otherwise cloning will be slower using ssh
+set_ssh_config
 
 if Gem::Version.new(Retrospec::Puppet::VERSION) < Gem::Version.new('0.11.0')
   puts "Newer version of retrospec-puppet detected, please update: gem update puppet-retrospec"
