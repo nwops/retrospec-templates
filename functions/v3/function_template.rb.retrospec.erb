@@ -67,8 +67,8 @@ Puppet::Parser::Functions::newfunction(<%= name.to_sym.inspect %>,
                                        :type => <%= return_type.to_sym.inspect %>,
                                        :arity => 1, # minimum one argument, please see arity doc above
                                        :doc => "Write up some Helpful information here"
-                                       )
-do |args|
+                                       ) do |args|
+
   # you can access the args just like ARGV
   some_varname1 = args[0]
   some_varname2 = args[1]
