@@ -9,7 +9,6 @@
 
 require 'fileutils'
 require 'open-uri'
-require 'retrospec-puppet'
 
 @template_dir    = ARGV[0] || File.join(ENV['HOME'], '.retrospec/repos/retrospec-puppet-templates')
 @template_repo   = ARGV[1] || 'https://github.com/nwops/retrospec-templates'
@@ -17,7 +16,8 @@ require 'retrospec-puppet'
 
 def perform_update?
   update = true
-  path = File.join(@template_dir, '.git', 'objects')
+  # try and check when the last time a fetch occured
+  path = File.join(@template_dir, '.git', 'FETCH_HEAD')
   if File.exists?(path)
     obj_dir = File.new(path)
     last_updated = obj_dir.mtime + 2*60*60  # add two hours
@@ -76,10 +76,20 @@ def connected?
   open("http://www.google.com/") rescue false
 end
 
+# returns the version of installed retrospec-puppet
+def latest_puppet_retrospec_version
+  gemspecs ||= if Gem::Specification.respond_to?(:latest_specs)
+                  Gem::Specification.latest_specs
+                else
+                  Gem.searcher.init_gemspecs
+                end
+  gemspecs.find { |spec| spec.name == 'puppet-retrospec'}.version
+end
+
 #ensure config is set otherwise cloning will be slower using ssh
 set_ssh_config
 
-if Gem::Version.new(Retrospec::Puppet::VERSION) < Gem::Version.new('0.11.0')
+if Gem::Version.new(latest_puppet_retrospec_version) < Gem::Version.new('0.12.0')
   puts "Newer version of retrospec-puppet detected, please update: gem update puppet-retrospec"
   puts "Incompatible plugin version with new templates, will not continue without update"
   exit -1
