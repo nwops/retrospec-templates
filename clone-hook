@@ -91,9 +91,10 @@ set_ssh_config
 
 if Gem::Version.new(latest_puppet_retrospec_version) < Gem::Version.new('0.12.0')
   puts "Newer version of retrospec-puppet detected, please update: gem update puppet-retrospec"
-  puts "Incompatible plugin version with new templates, will not continue without update"
-  exit -1
+  puts "Incompatible plugin version with new templates, errors may follow without update"
+  puts "You have version: #{latest_puppet_retrospec_version}"
 end
+
 # sometimes I work on an airplane and don't care to clone everything all the time
 # so lets check for connectivity first
 if connected?
