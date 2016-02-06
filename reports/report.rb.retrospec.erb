@@ -1,5 +1,13 @@
 # More info for creating reports can be found here:
 # https://docs.puppetlabs.com/guides/reporting.html
+# self.host	The node name of the client
+# self.status	The status of the run: failed, unchanged, etc
+# self.configuration_version	The configuration version of the run
+# self.kind	The type of run: apply, inspect, etc
+# self.environment	The environment of the client
+# self.metrics	The metrics from the run
+# self.logs	The log output from the run 
+
 require 'puppet'
 # require any other Ruby libraries necessary for this specific report
 

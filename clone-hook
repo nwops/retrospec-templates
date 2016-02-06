@@ -83,7 +83,12 @@ def latest_puppet_retrospec_version
                 else
                   Gem.searcher.init_gemspecs
                 end
-  gemspecs.find { |spec| spec.name == 'puppet-retrospec'}.version
+  g = gemspecs.find { |spec| spec.name == 'puppet-retrospec'}
+  if g
+    g.version
+  else
+    '0.0.0'
+  end
 end
 
 #ensure config is set otherwise cloning will be slower using ssh
