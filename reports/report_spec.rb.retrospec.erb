@@ -1,0 +1,10 @@
+require 'spec_helper'
+require 'puppet/reports'
+
+processor = Puppet::Reports.report(:http)
+
+describe processor do
+  subject { Puppet::Transaction::Report.new("apply").extend(processor) }
+
+  
+end

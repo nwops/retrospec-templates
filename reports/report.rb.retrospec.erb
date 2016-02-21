@@ -6,15 +6,16 @@
 # self.kind	The type of run: apply, inspect, etc
 # self.environment	The environment of the client
 # self.metrics	The metrics from the run
-# self.logs	The log output from the run 
+# self.logs	The log output from the run
 
 require 'puppet'
 # require any other Ruby libraries necessary for this specific report
 
 Puppet::Reports.register_report(<%= name.to_sym.inspect %>) do
   desc <<EOF
-Process reports via the my_cool_cmdb API.
-  EOF
+  Process reports via the my_cool_cmdb API.
+
+EOF
 
   def process
     # do something that sets up the API we're sending the report to.
