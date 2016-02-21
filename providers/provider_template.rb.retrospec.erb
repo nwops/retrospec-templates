@@ -35,7 +35,7 @@ Puppet::Type.type(<%= type_name.to_sym.inspect %>).provide(<%= provider_name.to_
   def self.instances
     get_data.collect do |d|
       new(
-        <%= properties.to_h.inspect %>
+        <%= properties.each_with_object({}) {|o, obj| obj[o] = nil}.inspect %>
       )
     end
   end

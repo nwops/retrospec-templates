@@ -1,7 +1,3 @@
-branches:
-  only:
-    - master
-    - development
 language: ruby
 variables:
 script: "bash ./validate_erb.sh && ruby ./test_render.rb"
