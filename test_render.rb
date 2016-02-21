@@ -92,7 +92,7 @@ def render_erb_file(template,spec_object)
     content = renderer.result spec_object.get_binding
   end
 end
-
+status = 0
 erb_files.each do |file|
   puts "Checking Erb file: #{file}".yellow
   begin
@@ -109,7 +109,7 @@ erb_files.each do |file|
     puts "File: #{file} was validated".green
   rescue Exception => e
     puts e.message.fatal
-    exit 1
+    status = 1
   end
 end
-exit 0
+exit status

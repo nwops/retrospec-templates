@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Puppet::Type.type(<%= type_name.inspect %>).provider(<%= name.inspect %>) do
   let (:provider) { subject }
   let(:properties) do
-    <%= properties.to_h.inspect %>
+    <%= properties.each_with_object({}) {|o, obj| obj[o] = nil}.inspect %>
   end
   let(:resource) { subject.new(properties) }
 
