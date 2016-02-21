@@ -1,3 +1,5 @@
+ [![Build Status](https://travis-ci.org/nwops/retrospec-templates.png)](https://travis-ci.org/nwops/retrospec-templates)
+
 # Retrospec Templates
 This repo is used to house all the templates and files that retrospec-puppet uses when creating or updating the module contents. The templates are separate from the gem in case you want to change them or have multiple template repos for different clients or situations.
 
