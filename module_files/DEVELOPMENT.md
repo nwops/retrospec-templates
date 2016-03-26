@@ -10,7 +10,7 @@ bundle install  (only need to do once)
 ## Running Tests
 
 ### Unit tests
-This type of testing is fast and should be the first thing you do before comming your code.  Mistakes can be found
+This type of testing is fast and should be the first thing you do before committing your code.  Mistakes can be found
 in a matter of seconds vs minutes/hours.  You can test your logic in a unit test.  The downside is you need to learn
 how to write unit tests which can take some initial time getting used to.
 
@@ -62,7 +62,7 @@ bundle exec rake "vagrant_up[linux.pp,centos6]"
 
 ### Acceptance Tests 
 Acceptance testing is sorta like combining unit testing and integration testing where it tests the code on real systems
-automatically across a wide range of operating systems.  This is an advanced topic, so yu will want to master unit and
+automatically across a wide range of operating systems.  This is an advanced topic, so you will want to master unit and
 integration testing first before writing acceptance tests.
 
 ```shell
