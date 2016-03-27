@@ -38,6 +38,10 @@ describe '<%= @type.name -%>' do
   # add these two lines in a single test block to enable puppet and hiera debug mode
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
+  it do
+    is_expected.to compile.with_all_deps
+  end
+
   <%- @resources.each do |res| -%>
   it do
     is_expected.to contain_<%= res.type.gsub('::', '__')%>('<%= res.title %>')
