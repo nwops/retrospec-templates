@@ -14,7 +14,7 @@ describe '<%= @type.name -%>' do
   <%- elsif @type.type == :node -%>
   # the node name you want to test for in the site.pp classification
   let(:node) { '<%= @type.name %>' }
-  <%- end -%>  
+  <%- end -%>
   # below is the facts hash that gives you the ability to mock
   # facts on a per describe/context block.  If you use a fact in your
   # manifest you should mock the facts below.
@@ -28,7 +28,7 @@ describe '<%= @type.name -%>' do
     {
     <%- @parameters.each do |k,v| -%>
         <%- if v.nil? -%>
-      <%= ":#{k} => 'place_value_here'," %>
+      <%= ":#{k} => '#{k}_value'," %>
         <%- else -%>
       <%= "#:#{k} => #{variable_value(v)}," %>
         <%- end -%>
