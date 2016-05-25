@@ -32,10 +32,11 @@ Puppet::Type.type(<%= type_name.to_sym.inspect %>).provide(<%= provider_name.to_
   # every user and its attributes). The `puppet resource` command relies
   # on self.instances to gather an array of user instances in order to
   # display its output.
+  <%- props ||= properties || [] -%>
   def self.instances
     get_data.collect do |d|
       new(
-        <%= properties.each_with_object({}) {|o, obj| obj[o] = nil}.inspect %>
+        <%= props.each_with_object({}) {|o, obj| obj[o] = nil}.inspect %>
       )
     end
   end
