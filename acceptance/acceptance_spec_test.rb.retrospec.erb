@@ -1,0 +1,27 @@
+require 'spec_helper_acceptance'
+
+describe '<%= type_name -%> <%= resource_type_name %>' do
+  describe 'running puppet code' do
+    it 'should work with no errors' do
+      pp = <<-EOS
+      <%- if resource_type_name == 'class' -%>
+      class{'<%= type_name %>':
+      <%- parameters.lines.each do |line| -%>
+      <%= line -%>
+      <%- end -%>
+      <%- else -%>
+      <%= type_name %>{'some_value':
+      <%- parameters.lines.each do |line| -%>
+      <%= line -%>
+      <%- end -%>
+      <%- end %>
+      }
+      EOS
+
+    # Run it twice and test for idempotency
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes => true)
+    end
+
+  end
+end
