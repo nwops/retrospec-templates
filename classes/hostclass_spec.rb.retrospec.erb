@@ -15,6 +15,7 @@ describe '<%= type_name -%>' do
   let(:facts) do
     {}
   end
+
   # below is a list of the resource parameters that you can override.
   # By default all non-required parameters are commented out,
   # while all required parameters will require you to add a value
@@ -22,7 +23,7 @@ describe '<%= type_name -%>' do
     {
     <%- parameters.lines.each do |line| -%>
     <%= line -%>
-    <%- end -%>
+    <%- end %>
     }
   end
   # add these two lines in a single test block to enable puppet and hiera debug mode
@@ -31,4 +32,5 @@ describe '<%= type_name -%>' do
   <%- resources.each do |res| -%>
   <%= res -%>
   <%- end -%>
+  
 end

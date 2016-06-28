@@ -77,6 +77,7 @@ def context
    :methods     => [],
    :properties => {},
    :parameters => {},
+   :resources => [],
    :instance_methods => [],
    :type_name => 'type_name')
 
@@ -98,7 +99,11 @@ erb_files.each do |file|
   begin
     case file
     when /acceptance/
-      render_erb_file(file,MockSpecObject.new)
+      if File.dirname(file) == 'acceptance'
+        render_erb_file(file,MockSpecObject.new)
+      else
+        render_erb_file(file,MockSpecObject.new)
+      end
     when /shared_contexts/
       render_erb_file(file,MockSpecObject.new)
     when /resource_spec/
