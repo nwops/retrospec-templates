@@ -24,9 +24,13 @@ class MockSpecObject
 
     def initialize
       @type = OpenStruct.new(:name => 'name', :type => 'some_type')
-      @parameters = []
       @all_hiera_data = {}
+      @parameters = []
       @resources = []
+    end
+
+    def parameters
+      String.new
     end
 
     def get_binding
@@ -63,6 +67,14 @@ class MockSpecObject
       'fact_name'
     end
 
+    def resource_type_name
+      type_name
+    end
+
+    def type_name
+      'test_type_name'
+    end
+
   end
 
 def context
@@ -77,7 +89,6 @@ def context
    :methods     => [],
    :properties => {},
    :parameters => {},
-   :resources => [],
    :instance_methods => [],
    :type_name => 'type_name')
 
@@ -93,17 +104,22 @@ def render_erb_file(template,spec_object)
     content = renderer.result spec_object.get_binding
   end
 end
+
 status = 0
 erb_files.each do |file|
   puts "Checking Erb file: #{file}".yellow
   begin
     case file
+    when /classes|defines/
+      render_erb_file(file,MockSpecObject.new)
     when /acceptance/
       if File.dirname(file) == 'acceptance'
         render_erb_file(file,MockSpecObject.new)
       else
         render_erb_file(file,MockSpecObject.new)
       end
+    when /nodes/
+      render_erb_file(file,MockSpecObject.new)
     when /shared_contexts/
       render_erb_file(file,MockSpecObject.new)
     when /resource_spec/
