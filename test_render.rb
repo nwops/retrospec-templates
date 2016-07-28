@@ -29,6 +29,10 @@ class MockSpecObject
       @resources = []
     end
 
+    def parameter_names
+      ['x', 'y']
+    end
+
     def parameters
       String.new
     end
