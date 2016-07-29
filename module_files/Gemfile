@@ -23,5 +23,6 @@ group :development do
     gem "travis"
     gem "travis-lint"
     gem "puppet-blacksmith"
-    gem "guard-rake"
+# This gem causes bundler install erorrs    
+#    gem "guard-rake"
 end
