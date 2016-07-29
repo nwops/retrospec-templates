@@ -1,11 +1,10 @@
 require 'spec_helper'
 
-<%- parameter_names.each do |k| -%>
-let(<%= k.to_sym.inspect %>) do
-  'some_value_goes_here'
-end
-<%- end -%>
-
 describe '<%= name %>' do
+  <%- parameter_names.each do |k| -%>
+  let(<%= k.to_sym.inspect %>) do
+    'some_value_goes_here'
+  end
+  <%- end -%>
   it { is_expected.to run.with_params(<%= parameter_names.join(',') %>).and_return('some_value') }
 end

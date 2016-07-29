@@ -69,15 +69,16 @@ Puppet::Parser::Functions::newfunction(<%= name.to_sym.inspect %>,
                                        :doc => "Write up some Helpful information here"
                                        ) do |args|
 
-  # you can access the args just like ARGV
+  # the arguments are stored in an array
   some_varname1 = args[0]
   some_varname2 = args[1]
 
-  # be must be >= 2000  # example validation only
-  raise(Puppet::ParseError, "<%= name %>(): Bad argument " +
+  # write some simple validations to ensure your function is executated correctly
+  # validate that the input must be >= 2000  # example validation only
+  raise(Puppet::ParseError, "<%= name %>(): Bad argument, must be less than 2000 " +
       "given (#{some_varname1.inspect})") if some_varname1.to_s !~ /[2-9]{1}0{3}/
 
-  # do something here
+  # insert code here that manipulates the input or calls some external API
   # the last code evaluated will return the value
   value = 3
 end
