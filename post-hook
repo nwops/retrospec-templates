@@ -1,5 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
 
 # Do something cool here.
 #echo "Hello from the post hook"
 #echo "The module path is: ${1}"
+module_path = ARGV[0]
+exit 0

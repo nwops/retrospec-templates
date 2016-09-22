@@ -19,13 +19,8 @@ def perform_update?
   # try and check when the last time a fetch occured
   path = File.join(@template_dir, '.git', 'FETCH_HEAD')
   if File.exists?(path)
-    obj_dir = File.new(path)
-    last_updated = obj_dir.mtime + 2*60*60  # add two hours
-    if last_updated < Time.now
-      update = true
-    else
-      update = false
-    end
+    last_updated = File.mtime(path) + 2*60*60  # add two hours
+    update = last_updated < Time.now
   end
   update
 end
@@ -92,7 +87,7 @@ def latest_puppet_retrospec_version
 end
 
 #ensure config is set otherwise cloning will be slower using ssh
-# disable as this causes problems 
+# disable as this causes problems
 #set_ssh_config
 
 if Gem::Version.new(latest_puppet_retrospec_version) < Gem::Version.new('0.12.0')
