@@ -24,7 +24,7 @@ group :development do
     gem "travis"
     gem "travis-lint"
     gem "puppet-blacksmith"
-    gem 'puppet-repl' # assuming you are using puppet 3.8+
+    gem 'puppet-debugger'
 # This gem causes bundler install erorrs
 #    gem "guard-rake"
 end
