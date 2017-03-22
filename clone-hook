@@ -59,7 +59,7 @@ end
 
 def update_templates(git_url, dest, branch='master')
   create_repo(dest, git_url, branch)
-  puts `git --git-dir #{dest}/.git --work-tree #{dest} pull` if perform_update?
+  puts `git --git-dir #{dest}/.git pull` if perform_update?
   dest
 end
 
