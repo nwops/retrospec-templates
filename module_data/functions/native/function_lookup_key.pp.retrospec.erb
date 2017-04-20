@@ -1,0 +1,24 @@
+# See https://docs.puppet.com/puppet/4.5/reference/lang_write_functions_in_puppet.html
+# for more information on native puppet functions.
+#
+# @return [Hash] hash of lookup keys and their associated values
+#
+# The function must either call the context object’s not_found method,
+# or return a hash of lookup keys and their associated values.
+# (The hash can be empty.)
+# Values in the returned hash can include Hiera interpolation tokens
+# like %{variable} or %{lookup('key')}
+#
+#
+# @param options [Hash] A hash of options
+# @param context [Puppet::LookupContext] A Puppet::LookupContext object
+# @param key [Variant[String, Numeric]] A key to look up
+#
+# https://docs.puppet.com/puppet/4.10/hiera_custom_lookup_key.html
+function <%= "#{module_name}::#{name}" %>(
+  Variant[String, Numeric] $key,
+  Hash                     $options,
+  Puppet::LookupContext    $context,
+  ) {
+
+}

@@ -1,0 +1,29 @@
+# See https://docs.puppet.com/puppet/4.5/reference/lang_write_functions_in_puppet.html
+# for more information on native puppet functions.
+#
+# @return [Hash] hash of lookup keys and their associated values
+#
+# The function must either call the context object’s not_found method,
+# or return a hash of lookup keys and their associated values.
+# (The hash can be empty.)
+# Values in the returned hash can include Hiera interpolation tokens
+# like %{variable} or %{lookup('key')}
+#
+#
+# @param options [Hash] A hash of options
+# @param context [Puppet::LookupContext] A Puppet::LookupContext object
+# @param segments [Array[Variant[String, Numeric]]] An array of lookup key segments.
+# The array of key segments is made by splitting the requested lookup key
+# on the dot (.) subkey separator. For example, a lookup for users.dbadmin.uid would
+# result in ['users', 'dbadmin', 'uid']. Positive base-10 integer subkeys (for
+# accessing array members) are converted to Integer objects, but other number-like
+# subkeys remain as strings.
+#
+https://docs.puppet.com/puppet/4.10/hiera_custom_data_dig.html
+function <%= "#{module_name}::#{name}" %>(
+  Array[Variant[String, Numeric]] $segments,
+  Hash                  $options,
+  Puppet::LookupContext $context,
+  ) {
+
+}

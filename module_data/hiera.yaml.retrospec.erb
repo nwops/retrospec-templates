@@ -1,0 +1,17 @@
+---
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+hierarchy:
+<%- if backend_type == 'hiera' -%>
+    - name: "OS family"
+      path: "os/%{facts.os.family}.yaml"
+    - name: "common"
+      path: "common.yaml"
+<%- else -%>
+    - name: common
+      <%= backend_type %>: '<%= module_name %>::<%= backend_name %>'
+<%- end -%>
+
+

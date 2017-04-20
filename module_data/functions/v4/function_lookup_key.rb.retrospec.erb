@@ -1,0 +1,30 @@
+# extremely helpful documentation
+# https://github.com/puppetlabs/puppet-specifications/blob/master/language/func-api.md#the-4x-api
+#
+#
+# @return [Hash] hash of lookup keys and their associated values
+#
+# The function must either call the context object’s not_found method,
+# or return a hash of lookup keys and their associated values.
+# (The hash can be empty.)
+#
+#
+# @param options [Hash] A hash of options
+# @param context [Puppet::LookupContext] A Puppet::LookupContext object
+# @param key [Variant[String, Numeric]] A key to look up
+#
+# https://docs.puppet.com/puppet/4.10/hiera_custom_lookup_key.html
+Puppet::Functions.create_function(<%= "#{module_name}::#{name}".to_sym.inspect %>) do
+
+  def <%= name %>(key, options, context)
+    # compute the return value here
+  end
+
+  dispatch :<%= name %> do
+    param 'Variant[String, Numeric]', :key
+    param 'Hash', :options
+    param 'Puppet::LookupContext', :context
+  end
+
+  # you can define other helper methods in this code block as well
+end
