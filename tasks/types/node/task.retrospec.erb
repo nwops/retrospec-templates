@@ -1,6 +1,8 @@
 <%= shebang %>
 
-# See https://github.com/puppetlabs/tasks-playground
+// See https://github.com/puppetlabs/tasks-playground
+
+// See https://puppet.com/docs/bolt/0.5/writing_tasks_and_plans.html for docs
 
 <%- task_params.each do |p| -%>
 console.log(process.env.PT_<%= p %>)

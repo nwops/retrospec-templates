@@ -1,7 +1,9 @@
 <%= shebang %>
 
 # See https://github.com/puppetlabs/tasks-playground
-echo $(hostname) got passed the message: $PT_message
+
+# See https://puppet.com/docs/bolt/0.5/writing_tasks_and_plans.html for docs
+
 <%- task_params.each do |p| -%>
 puts ENV['PT_<%= p %>']
 <%- end -%>
