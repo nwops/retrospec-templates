@@ -1,0 +1,7 @@
+<%= shebang %>
+
+# See https://github.com/puppetlabs/tasks-playground
+echo $(hostname) got passed the message: $PT_message
+<%- task_params.each do |p| -%>
+puts ENV['PT_<%= p %>']
+<%- end -%>

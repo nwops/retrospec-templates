@@ -1,0 +1,8 @@
+<%= shebang %>
+
+# See https://github.com/puppetlabs/tasks-playground
+
+import os
+<%- task_params.each do |p| -%>
+print os.environ['PT_<%= p %>']
+<%- end -%>

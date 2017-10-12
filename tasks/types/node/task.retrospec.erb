@@ -1,0 +1,7 @@
+<%= shebang %>
+
+# See https://github.com/puppetlabs/tasks-playground
+
+<%- task_params.each do |p| -%>
+console.log(process.env.PT_<%= p %>)
+<%- end -%>

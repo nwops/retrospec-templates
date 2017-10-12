@@ -1,0 +1,6 @@
+<%= shebang %>
+
+# See https://github.com/puppetlabs/tasks-playground
+Param([Parameter(Mandatory=$True)] [String] $Command)
+
+Invoke-Expression $Command
