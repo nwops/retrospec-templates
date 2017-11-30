@@ -23,7 +23,7 @@ describe '<%= type_name -%>' do
     {
     <%- parameters.lines.each do |line| -%>
     <%= line -%>
-    <%- end %>
+    <%- end -%>
     }
   end
   # add these two lines in a single test block to enable puppet and hiera debug mode
@@ -32,5 +32,4 @@ describe '<%= type_name -%>' do
   <%- resources.each do |res| -%>
   <%= res -%>
   <%- end -%>
-  
 end
