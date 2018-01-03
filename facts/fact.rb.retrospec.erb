@@ -1,8 +1,9 @@
 Facter.add(<%= fact_name.to_sym.inspect %>) do
+  confine :kernel => 'Linux'
+
   setcode do
     # use the confine feature to lock a fact to only run under certain conditions
     # this is only example, so please remove if you want to run on more than linux
-    confine :kernel => 'Linux'
 
     # inspect the system for interesting data
     # when you need to shell out to run a os specific command
