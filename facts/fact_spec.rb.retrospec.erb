@@ -1,7 +1,9 @@
 require 'spec_helper'
 require 'facter'
+require 'facter/<%= fact_name %>'
 
 describe <%= fact_name.to_sym.inspect %>, :type => :fact do
+  subject(:fact) { Facter.fact(subject) }
 
   before :all do
     # perform any action that should be run for the entire test suite
