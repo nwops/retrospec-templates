@@ -1,13 +1,11 @@
 require 'puppetlabs_spec_helper/module_spec_helper'
 require 'rspec-puppet-utils'
-# if your using puppet4, the following gem seems to causes issues
-require 'hiera-puppet-helper'
+require 'rspec-puppet-facts'
+
+include RspecPuppetFacts
 
 # Uncomment this to show coverage report, also useful for debugging
 #at_exit { RSpec::Puppet::Coverage.report! }
-
-#set to "yes" to enable the future parser, the equivalent of setting parser=future in puppet.conf.
-#ENV['FUTURE_PARSER'] = 'yes'
 
 # set to "yes" to enable strict variable checking, the equivalent of setting strict_variables=true in puppet.conf.
 #ENV['STRICT_VARIABLES'] = 'yes'
@@ -24,6 +22,16 @@ require 'hiera-puppet-helper'
 # set to "yes" to enable the $facts hash and trusted node data, which enabled $facts and $trusted hashes.
 # This is equivalent to setting trusted_node_data=true in puppet.conf.
 #ENV['TRUSTED_NODE_DATA'] = 'yes'
+
+def fixtures_dir
+  @fixtures_dir ||= File.join(File.dirname(__FILE__), 'fixtures')
+end
+
+def mock_facts
+  @mock_facts ||= File.join(fixtures_dir, 'facterdb_facts')
+end
+
+ENV['FACTERDB_SEARCH_PATHS'] = mock_facts
 
 RSpec.configure do |c|
     c.formatter = 'documentation'
