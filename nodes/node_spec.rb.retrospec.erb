@@ -22,8 +22,17 @@ describe '<%= type_name -%>' do
   # add these two lines in a single test block to enable puppet and hiera debug mode
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
-  <%- resources.each do |res| -%>
-  <%= res %>
-  <%- end -%>
-  
+
+  on_supported_os(test_on).each do |os, os_facts|
+    context "on #{os}" do
+      let(:facts) { os_facts.merge(facts) }
+
+      it { is_expected.to compile }
+
+      <%- resources.each do |res| -%>
+      <%= res -%>
+      <%- end -%>
+
+    end
+  end
 end
