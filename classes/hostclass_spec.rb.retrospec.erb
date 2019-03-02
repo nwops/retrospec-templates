@@ -12,7 +12,7 @@ describe '<%= type_name -%>' do
   # below is the facts hash that gives you the ability to mock
   # facts on a per describe/context block.  If you use a fact in your
   # manifest you should mock the facts below.
-  let(:facts) do
+  let(:extra_facts) do
     {}
   end
 
@@ -32,7 +32,7 @@ describe '<%= type_name -%>' do
 
   on_supported_os(test_on).each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { os_facts.merge(facts) }
+      let(:facts) { os_facts.merge(extra_facts) }
 
       it { is_expected.to compile }
 
