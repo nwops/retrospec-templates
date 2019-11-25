@@ -30,7 +30,7 @@ describe '<%= type_name -%>' do
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
 
-  on_supported_os(test_on).each do |os, os_facts|
+  on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts.merge(extra_facts) }
 
